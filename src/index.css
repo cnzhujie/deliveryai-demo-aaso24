@@ -4,11 +4,57 @@
 @tailwind utilities;
 
 :root { color: #211f1c; background: #fbf5ea; font-synthesis: none; }
+html.dark { color: #f5f1e8; background: #121416; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; min-height: 100vh; background: #fbf5ea; }
+.dark body { background: #121416; }
 button, input { font: inherit; }
 ::selection { background: #ffddd8; color: #a9231a; }
+.dark ::selection { background: #7f2f28; color: #fff7f4; }
+
+/* 夜间主题语义色映射：不改变组件尺寸和布局，只替换现有视觉 token。 */
+.dark .bg-rice-50,
+.dark .bg-rice-50\/95,
+.dark .bg-rice-100,
+.dark .bg-rice-100\/95 { background-color: rgb(18 20 22 / var(--tw-bg-opacity, 1)); }
+.dark .bg-rice-200 { background-color: #30363c; }
+.dark .bg-white,
+.dark .bg-white\/80,
+.dark .bg-white\/90,
+.dark .bg-white\/95 { background-color: rgb(28 32 36 / var(--tw-bg-opacity, 1)); }
+.dark .bg-white\/55 { background-color: rgb(18 20 22 / .82); }
+.dark .bg-chili-50 { background-color: #3b2424; }
+.dark .bg-chili-100 { background-color: #512928; }
+.dark .bg-chili-500,
+.dark .bg-chili-600 { background-color: #b72f25; }
+.dark .bg-amber-100,
+.dark .bg-amber-100\/70 { background-color: rgb(69 53 27 / var(--tw-bg-opacity, 1)); }
+.dark .bg-emerald-50 { background-color: #18382f; }
+.dark .bg-charcoal-900 { background-color: #171a1d; }
+.dark .bg-charcoal-900\/90 { background-color: rgb(17 19 21 / .95); }
+.dark .text-charcoal-900 { color: #f5f1e8; }
+.dark .text-charcoal-700 { color: #e0ddd5; }
+.dark .text-charcoal-500 { color: #b9c0c6; }
+.dark .text-chili-500,
+.dark .text-chili-600 { color: #ff7668; }
+.dark .text-amber-500 { color: #f5c25b; }
+.dark .text-emerald-600 { color: #69d8ae; }
+.dark .bg-amber-400.text-charcoal-900,
+.dark .bg-rice-200.text-charcoal-900 { color: #211f1c; }
+.dark .border-charcoal-900\/5,
+.dark .border-charcoal-900\/10 { border-color: #66727d; }
+.dark .border-white,
+.dark .border-white\/80 { border-color: #66727d; }
+.dark .border-chili-500,
+.dark .border-chili-500\/20,
+.dark .border-chili-500\/30 { border-color: #ff7668; }
+.dark .ring-chili-50 { --tw-ring-color: rgb(255 118 104 / .28); }
+.dark input { color: #f5f1e8; caret-color: #ff7668; }
+.dark input::placeholder { color: #aeb6bd; }
+.dark .paper-noise { background-image: radial-gradient(rgba(255, 255, 255, .055) .7px, transparent .7px); }
+.dark .shadow-card { --tw-shadow-color: rgb(0 0 0 / .34); }
+.dark .shadow-float { --tw-shadow-color: rgb(0 0 0 / .5); }
 
 /* 老人模式全局基础：放大字号约 1.25 倍 */
 .elderly { font-size: 125%; }

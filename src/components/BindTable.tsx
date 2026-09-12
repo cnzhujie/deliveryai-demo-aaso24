@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next'
 import { Check, ChevronRight, MapPin, QrCode, Sparkles, Users } from 'lucide-react'
 import hotpot from '@/assets/hotpot.jpg'
 import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import type { Theme } from '@/hooks/useTheme'
 
 const tableOptions = [
   { code: 'A08', areaKey: 'bind.area.hall', seats: 4 },
@@ -10,12 +12,13 @@ const tableOptions = [
   { code: 'D03', areaKey: 'bind.area.window', seats: 6 },
 ]
 
-interface BindTableProps { onBind: (table: string) => void }
+interface BindTableProps { theme: Theme; onToggleTheme: () => void; onBind: (table: string) => void }
 
-export function BindTable({ onBind }: BindTableProps) {
+export function BindTable({ theme, onToggleTheme, onBind }: BindTableProps) {
   const { t } = useTranslation()
   return (
     <main className="relative min-h-screen overflow-hidden bg-rice-100 paper-noise">
+      <ThemeToggle theme={theme} onToggle={onToggleTheme} className="absolute right-4 top-4 z-20 sm:right-6 sm:top-6" />
       <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-chili-100 blur-3xl" />
       <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-amber-100 blur-3xl" />
       <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-5 py-10 lg:grid-cols-2 lg:px-10">

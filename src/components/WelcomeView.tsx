@@ -3,19 +3,24 @@ import { ArrowRight, MapPin, Sparkles, Store } from 'lucide-react'
 import hotpot from '@/assets/hotpot.jpg'
 import { Button } from '@/components/ui/button'
 import { tableAreas } from '@/data/menu'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import type { Theme } from '@/hooks/useTheme'
 
 interface WelcomeViewProps {
   table: string
+  theme: Theme
+  onToggleTheme: () => void
   onEnter: () => void
 }
 
-export function WelcomeView({ table, onEnter }: WelcomeViewProps) {
+export function WelcomeView({ table, theme, onToggleTheme, onEnter }: WelcomeViewProps) {
   const { t } = useTranslation()
   const areaKey = tableAreas[table]
   const tableLabel = areaKey ? `${table} · ${t(areaKey)}` : table
 
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-rice-100 paper-noise">
+      <ThemeToggle theme={theme} onToggle={onToggleTheme} className="absolute right-4 top-4 z-20 sm:right-6 sm:top-6" />
       <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-chili-100 blur-3xl" />
       <div className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full bg-amber-100 blur-3xl" />
 

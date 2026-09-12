@@ -14,6 +14,7 @@ import { TopBar } from '@/components/TopBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useElderlyMode } from '@/hooks/useElderlyMode'
+import { useTheme } from '@/hooks/useTheme'
 import { orderReducer, initialState } from '@/state/orderReducer'
 import { products } from '@/data/menu'
 import { money } from '@/lib/utils'
@@ -37,6 +38,7 @@ export default function App() {
   const { t, i18n } = useTranslation()
   const [state, dispatch] = useReducer(orderReducer, initialState, createPreviewState)
   const { enabled: elderly, toggle: toggleElderly } = useElderlyMode()
+  const { theme, toggle: toggleTheme } = useTheme()
   const [serviceOpen, setServiceOpen] = useState(false)
   const [consoleOpen, setConsoleOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
@@ -69,11 +71,11 @@ export default function App() {
   }
 
   if (state.view === 'bind' || !state.table) {
-    return <BindTable onBind={(table) => dispatch({ type: 'BIND_TABLE', table })} />
+    return <BindTable theme={theme} onToggleTheme={toggleTheme} onBind={(table) => dispatch({ type: 'BIND_TABLE', table })} />
   }
 
   if (state.view === 'welcome') {
-    return <WelcomeView table={state.table!} onEnter={() => dispatch({ type: 'SET_VIEW', view: 'menu' })} />
+    return <WelcomeView theme={theme} onToggleTheme={toggleTheme} table={state.table!} onEnter={() => dispatch({ type: 'SET_VIEW', view: 'menu' })} />
   }
 
   return (
@@ -84,8 +86,10 @@ export default function App() {
         serviceCount={waitingServices}
         language={i18n.language}
         elderly={elderly}
+        theme={theme}
         onToggleLanguage={toggleLanguage}
         onToggleElderly={handleToggleElderly}
+        onToggleTheme={toggleTheme}
         onView={changeView}
         onService={() => setServiceOpen(true)}
         onConsole={() => setConsoleOpen(true)}
@@ -93,7 +97,7 @@ export default function App() {
 
       {state.view === 'menu' && (
         <main className="mx-auto grid max-w-7xl gap-6 px-4 py-5 pb-28 lg:grid-cols-3 lg:px-6 lg:py-7 lg:pb-8">
-          <div className="lg:col-span-2">
+          <div className="min-w-0 lg:col-span-2">
             <MenuView diners={state.diners} soldOut={state.soldOut} onAdd={(item) => dispatch({ type: 'ADD_CART', item })} />
           </div>
           <aside className="hidden lg:block">
