@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const CHROMIUM_PATH = '/home/gem/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome'
+const CHROMIUM_PATH = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH
+  ?? '/home/gem/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome'
 
 export default defineConfig({
   testDir: './e2e',
