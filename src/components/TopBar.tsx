@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { tableAreas } from '@/data/menu'
+import { ThemeToggle } from '@/components/ThemeToggle'
+import type { Theme } from '@/hooks/useTheme'
 import type { ViewName } from '@/types'
 
 interface TopBarProps {
@@ -11,14 +13,16 @@ interface TopBarProps {
   serviceCount: number
   language: string
   elderly: boolean
+  theme: Theme
   onToggleLanguage: () => void
   onToggleElderly: () => void
+  onToggleTheme: () => void
   onView: (view: ViewName) => void
   onService: () => void
   onConsole: () => void
 }
 
-export function TopBar({ table, view, serviceCount, language, elderly, onToggleLanguage, onToggleElderly, onView, onService, onConsole }: TopBarProps) {
+export function TopBar({ table, view, serviceCount, language, elderly, theme, onToggleLanguage, onToggleElderly, onToggleTheme, onView, onService, onConsole }: TopBarProps) {
   const { t } = useTranslation()
   const areaKey = tableAreas[table]
   const tableLabel = areaKey ? `${table} · ${t(areaKey)}` : table
@@ -29,7 +33,7 @@ export function TopBar({ table, view, serviceCount, language, elderly, onToggleL
         {t('common.banner')}
       </div>
       <header className="sticky top-0 z-30 border-b border-charcoal-900/5 bg-rice-50/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 lg:px-6">
+        <div className="scrollbar-none mx-auto flex h-16 w-full max-w-7xl items-center gap-3 overflow-x-auto px-4 lg:px-6">
           <button onClick={() => onView('menu')} className="flex items-center gap-2 text-left">
             <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-chili-500 text-lg font-black text-white shadow-md">{t('common.brand')}</span>
             <span className="hidden sm:block"><strong className="block leading-4 text-charcoal-900">{t('common.brand_name')}</strong><small className="text-charcoal-500">{t('common.subtitle')}</small></span>
@@ -56,6 +60,7 @@ export function TopBar({ table, view, serviceCount, language, elderly, onToggleL
             </DialogContent>
           </Dialog>
           <Button variant="outline" size="icon" onClick={onConsole} aria-label={t('common.aria_console')}><LayoutDashboard size={18} /></Button>
+          <ThemeToggle theme={theme} onToggle={onToggleTheme} />
           <Button variant="outline" size="icon" onClick={onToggleElderly} aria-label={elderly ? '切换至常规模式' : '切换至老人模式'}>
             <Accessibility size={18} className={elderly ? 'text-chili-500' : ''} />
           </Button>
